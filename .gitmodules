@@ -1,0 +1,6 @@
+[submodule "pm-client-vanilla"]
+	path = pm-client-vanilla
+	url = https://github.com/boesi/pm-client-vanilla
+[submodule "pm-server-node-http"]
+	path = pm-server-node-http
+	url = https://github.com/boesi/pm-server-node-http
