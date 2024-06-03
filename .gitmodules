@@ -4,3 +4,6 @@
 [submodule "pm-server-node-http"]
 	path = pm-server-node-http
 	url = https://github.com/boesi/pm-server-node-http
+[submodule "pm-proxy-nginx"]
+	path = pm-proxy-nginx
+	url = https://github.com/boesi/pm-proxy-nginx
