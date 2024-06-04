@@ -1,0 +1,39 @@
+name: pixel-mover
+
+
+services:
+  pm-client:
+    build: pm-client-vanilla
+    networks:
+      - proxy-tier
+
+  pm-server:
+    build: pm-server-node-http
+    ports:
+      - "9229:9229"
+    networks:
+      - proxy-tier
+
+  pm-proxy:
+    build: pm-proxy-nginx
+    ports:
+      - "${PM_PORT:-443}:443"
+    networks:
+      - proxy-tier
+    environment:
+      - PM_DOMAIN=${PM_DOMAIN:?error}
+      - PM_CERT_FILE=/run/secrets/pm_cert
+      - PM_CERT_KEY_FILE=/run/secrets/pm_cert_key
+    secrets:
+      - pm_cert
+      - pm_cert_key
+
+networks:
+  proxy-tier: {}
+
+secrets:
+  pm_cert:
+    file: ./cert/${PM_DOMAIN:?error}.pem
+  pm_cert_key:
+    file: ./cert/${PM_DOMAIN:?error}-key.pem
+
