@@ -5,21 +5,21 @@ services:
   pm-client:
     build: pm-client-vanilla
     networks:
-      - proxy-tier
+      - net-proxy
 
   pm-server:
     build: pm-server-node-http
     ports:
       - "9229:9229"
     networks:
-      - proxy-tier
+      - net-proxy
 
   pm-proxy:
     build: pm-proxy-nginx
     ports:
       - "${PM_PORT:-443}:443"
     networks:
-      - proxy-tier
+      - net-proxy
     environment:
       - PM_DOMAIN=${PM_DOMAIN:?error}
       - PM_CERT_FILE=/run/secrets/pm_cert
@@ -29,7 +29,7 @@ services:
       - pm_cert_key
 
 networks:
-  proxy-tier: {}
+  net-proxy: {}
 
 secrets:
   pm_cert:
