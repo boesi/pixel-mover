@@ -9,6 +9,8 @@ services:
 
   pm-server:
     build: pm-server-node-http
+    volumes:
+      - pm-data:/var/data
     ports:
       - "9229:9229"
     networks:
@@ -37,3 +39,10 @@ secrets:
   pm_cert_key:
     file: ./cert/${PM_DOMAIN:?error}-key.pem
 
+volumes:
+  pm-data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${PM_DATA_DIRECTORY}
